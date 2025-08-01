@@ -1,8 +1,7 @@
+from collections.abc import Callable  # you will need all of them in your code
+
 import torch
 from torch import nn
-
-from typing import Callable, Optional, Tuple, Union, List  # you will need all of them in your code
-
 
 
 class Network(nn.Module):
@@ -15,7 +14,7 @@ class Network(nn.Module):
 
     """
 
-    def __init__(self, input_size: int, output_size: int, hidden_layers: List[int], drop_p: float = 0.5) -> None:
+    def __init__(self, input_size: int, output_size: int, hidden_layers: list[int], drop_p: float = 0.5) -> None:
         super().__init__()
         # Input to a hidden layer
         self.hidden_layers: nn.ModuleList = nn.ModuleList([nn.Linear(input_size, hidden_layers[0])])
@@ -38,7 +37,9 @@ class Network(nn.Module):
         return nn.functional.log_softmax(x, dim=1)
 
 
-def validation(model: Network, testloader: torch.utils.data.DataLoader, criterion: Callable | nn.Module) -> tuple[float, float]:
+def validation(
+    model: Network, testloader: torch.utils.data.DataLoader, criterion: Callable | nn.Module
+) -> tuple[float, float]:
     """Validation pass through the dataset."""
     accuracy = 0
     test_loss = 0
@@ -59,7 +60,15 @@ def validation(model: Network, testloader: torch.utils.data.DataLoader, criterio
     return test_loss, accuracy
 
 
-def train(model: Network, trainloader: torch.utils.data.DataLoader, testloader: torch.utils.data.DataLoader, criterion: Callable | nn.Module, optimizer: None | Optional[torch.optim.Optimizer] = None, epochs: int = 5, print_every: int = 40) -> None:
+def train(
+    model: Network,
+    trainloader: torch.utils.data.DataLoader,
+    testloader: torch.utils.data.DataLoader,
+    criterion: Callable | nn.Module,
+    optimizer: None | torch.optim.Optimizer = None,
+    epochs: int = 5,
+    print_every: int = 40,
+) -> None:
     """Train a PyTorch Model."""
     if optimizer is None:
         optimizer = torch.optim.Adam(model.parameters(), lr=1e-2)

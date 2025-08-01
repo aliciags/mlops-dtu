@@ -1,35 +1,37 @@
 [build-system]
-requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
+requires = [ "setuptools" ]
+
 [project]
-name = "code_structure"
+name = "code-structure"
 version = "0.0.1"
 description = "base for clean code structure"
+readme = "README.md"
+keywords = [ "machine learning", "MLOps" ]
 authors = [
   { name = "alis", email = "your@email.com" },
 ]
 
-keywords = ["machine learning", "MLOps"]
+requires-python = ">=3.12"
 classifiers = [
   "Development Status :: 3 - Alpha",
-  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
 ]
-readme = "README.md"
-requires-python = ">=3.12"
-dynamic = ["dependencies", "optional-dependencies"]
+dynamic = [ "dependencies", "optional-dependencies" ]
 
 [tool.setuptools.dynamic]
-dependencies = {file = ["requirements.txt"]}
+dependencies = { file = [ "requirements.txt" ] }
 
 [tool.setuptools.dynamic.optional-dependencies]
-dev = {file = ['requirements_dev.txt']}
+dev = { file = [ 'requirements_dev.txt' ] }
 
 [tool.ruff]
 line-length = 120
 
-[tool.ruff.lint]
-select = ["I", "N", "E", "W", ]
+lint.select = [ "E", "I", "N", "W" ]
 
 [tool.coverage.run]
-omit = ["tests/*"]
+omit = [ "tests/*" ]
